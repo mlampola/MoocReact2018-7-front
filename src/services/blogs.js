@@ -24,7 +24,7 @@ const create = async (newBlog) => {
 
   try {
     const response = await axios.post(baseUrl, newBlog, config)
-    return response.data
+    return getById(response.data.id) // Populate user information
   }
   catch (exception) {
     console.log('Post blog: ', exception)
@@ -57,13 +57,13 @@ const update = async (updatedBlog) => {
   }
 }
 
-const remove = async (blog) => {
+const remove = async (id) => {
   const config = {
     headers: { 'Authorization': token }
   }
 
   try {
-    const response = await axios.delete(baseUrl + '/' + blog.id, config)
+    const response = await axios.delete(baseUrl + '/' + id, config)
     return response.data
   }
   catch (exception) {

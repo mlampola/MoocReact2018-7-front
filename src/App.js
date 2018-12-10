@@ -9,20 +9,18 @@ import loginService from './services/login'
 import './index.css'
 import { connect } from 'react-redux'
 import { notify } from './reducers/notificationReducer'
+import { blogInitialization, blogLike, blogCreation, blogDeletion } from './reducers/blogReducer'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      blogs: [],
       username: '',
       password: '',
       user: null,
       title: '',
       author: '',
-      url: '',
-      message: null,
-      error: null
+      url: ''
     }
   }
 
@@ -50,29 +48,19 @@ class App extends React.Component {
   }
 
   like = async (event) => {
-    const blog = await blogService.getById(event.target.id)
-    if (blog) {
-      blog.likes = blog.likes + 1
-      const updatedBlog = await blogService.update(blog)
-      this.setState({ blogs: this.state.blogs.map(blog => blog.id === updatedBlog.id ? updatedBlog : blog) })
-    }
+    this.props.blogLike(event.target.id)
   }
 
-  addBlog = async (event) => {
+  addBlog = (event) => {
     event.preventDefault()
-    const savedBlog = await blogService.create({
+    const newBlog = {
       title: this.state.title,
       author: this.state.author,
       url: this.state.url
-    })
-
-    if (savedBlog) {
-      const refreshedBlog = await blogService.getById(savedBlog.id) // Refresh user information
-      this.setState({
-        blogs: this.state.blogs.concat(refreshedBlog)
-      })
-      this.props.notify(`A new blog '${refreshedBlog.title}' ${refreshedBlog.author} by added`, 'message', 5)
     }
+
+    this.props.blogCreation(newBlog)
+    this.props.notify(`A new blog '${newBlog.title}' by ${newBlog.author} added`, 'message', 5)
 
     this.setState({
       title: '',
@@ -84,16 +72,12 @@ class App extends React.Component {
   deleteBlog = async (event) => {
     const blog = await blogService.getById(event.target.id)
     if (blog) {
-      blog.likes = blog.likes + 1
-
       try {
         if (window.confirm(`Delete '${blog.title}' by ${blog.author}?`)) {
-          await blogService.remove(blog)
-          this.setState({ blogs: this.state.blogs.filter(b => b.id !== blog.id) })
+          this.props.blogDeletion(blog.id)
         }
       }
       catch (error) {
-        console.log('Delete failed : ', error)
         this.props.notify(error.message, 'error', 5)
       }
     }
@@ -107,17 +91,14 @@ class App extends React.Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  async componentDidMount() {
-    const blogs = await blogService.getAll()
-    this.setState({ blogs })
-
+  componentDidMount() {
+    this.props.blogInitialization()
     const loggedUserJSON = window.localStorage.getItem('loggedInBlogUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       this.setState({ user })
       blogService.setToken(user.token)
     }
-
   }
 
   render() {
@@ -149,7 +130,7 @@ class App extends React.Component {
                 message={this.props.notification ? this.props.notification.message : null} />
             </Togglable>
             <p></p>
-            <BlogList blogs={this.state.blogs}
+            <BlogList blogs={this.props.blogs}
               likeHandler={this.like}
               deleteHandler={this.deleteBlog}
               loggedInUser={this.state.user} />
@@ -160,7 +141,13 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    blogs: state.blogs
+  }
+}
+
 export default connect(
-  null,
-  { notify }
+  mapStateToProps,
+  { notify, blogInitialization, blogLike, blogCreation, blogDeletion }
 )(App)
