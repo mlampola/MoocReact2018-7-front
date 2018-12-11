@@ -13,13 +13,13 @@ const UserStats = ({ details }) => {
         <tbody>
           {details
             .sort((a, b) => b.likes - a.likes)
-            .map(userDetail =>
-              <tr key={userDetail.id}>
+            .map(user =>
+              <tr key={user.id}>
                 <td>
-                  {userDetail.name}
+                  <a href={`/users/${user.id}`}>{user.name}</a>
                 </td>
                 <td>
-                  {userDetail.blogs ? userDetail.blogs.length : 0}
+                  {user.blogs ? user.blogs.length : 0}
                 </td>
               </tr>
             )

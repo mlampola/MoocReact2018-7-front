@@ -3,6 +3,7 @@ import './index.css'
 
 import HomePage from './components/HomePage'
 import UserPage from './components/UserPage'
+import UserBlogsPage from './components/UserBlogsPage'
 
 import { connect } from 'react-redux'
 import { blogInitialization } from './reducers/blogReducer'
@@ -18,13 +19,20 @@ class App extends React.Component {
     this.props.userDetailsInitialization()
   }
 
+  userById = (id) => {
+    return this.props.details.find(user => user.id === id)
+  }
+
   render() {
     return (
       <div>
         <Router>
           <div>
             <Route exact path="/" render={() => <HomePage />} />
-            <Route path="/users" render={() => <UserPage />} />
+            <Route exact path="/users" render={() => <UserPage />} />
+            <Route exact path="/users/:id" render={({ match }) =>
+              <UserBlogsPage blogUser={this.userById(match.params.id)} />}
+            />
           </div>
         </Router>
       </div>
@@ -32,7 +40,13 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    details: state.details
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { blogInitialization, getStoredUser, userDetailsInitialization }
 )(App)
