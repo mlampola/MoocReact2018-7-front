@@ -4,12 +4,13 @@ import BlogList from './components/BlogList'
 import BlogForm from './components/BlogForm'
 import Togglable from './components/Togglable'
 import Notification from './components/Notification'
+import User from './components/User'
 import blogService from './services/blogs'
-import loginService from './services/login'
 import './index.css'
 import { connect } from 'react-redux'
 import { notify } from './reducers/notificationReducer'
 import { blogInitialization, blogLike, blogCreation, blogDeletion } from './reducers/blogReducer'
+import { login, logout, getStoredUser } from './reducers/userReducer'
 
 class App extends React.Component {
   constructor(props) {
@@ -17,34 +18,27 @@ class App extends React.Component {
     this.state = {
       username: '',
       password: '',
-      user: null,
       title: '',
       author: '',
       url: ''
     }
   }
 
-  login = async (event) => {
+  login = (event) => {
     event.preventDefault()
     try {
-      const user = await loginService.login({
-        username: this.state.username,
-        password: this.state.password
-      })
-
-      window.localStorage.setItem('loggedInBlogUser', JSON.stringify(user))
-      blogService.setToken(user.token)
-      this.setState({ username: '', password: '', user })
+      this.props.login(this.state.username, this.state.password)
+      this.setState({ username: '', password: ''})
     } catch (exception) {
+      console.log(exception)
       this.props.notify('Wrong username or password', 'error', 5)
     }
   }
 
-  logout = async (event) => {
+  logout = (event) => {
     event.preventDefault()
-    window.localStorage.removeItem('loggedInBlogUser')
-    blogService.setToken(null)
-    this.setState({ username: '', password: '', user: null })
+    this.props.logout()
+    this.setState({ username: '', password: ''})
   }
 
   like = async (event) => {
@@ -93,18 +87,13 @@ class App extends React.Component {
 
   componentDidMount() {
     this.props.blogInitialization()
-    const loggedUserJSON = window.localStorage.getItem('loggedInBlogUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      this.setState({ user })
-      blogService.setToken(user.token)
-    }
+    this.props.getStoredUser()
   }
 
   render() {
     return (
       <div>
-        {this.state.user === null ?
+        {this.props.user === null ?
           <div className="login">
             <LoginForm username={this.state.username}
               password={this.state.password}
@@ -115,9 +104,7 @@ class App extends React.Component {
           :
           <div className="blogs">
             <h2>Blogs</h2>
-            <p>{this.state.user.name} logged in &nbsp;
-              <button onClick={this.logout}>Logout</button>
-            </p>
+            <User loggedInUser={this.props.user} logoutHandler={this.logout} />
             <Notification messageStyle='error' />
             <Togglable buttonLabel="Create new...">
               <BlogForm blog={{
@@ -133,7 +120,7 @@ class App extends React.Component {
             <BlogList blogs={this.props.blogs}
               likeHandler={this.like}
               deleteHandler={this.deleteBlog}
-              loggedInUser={this.state.user} />
+              loggedInUser={this.props.user} />
           </div>
         }
       </div>
@@ -143,11 +130,12 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    blogs: state.blogs
+    blogs: state.blogs,
+    user: state.user
   }
 }
 
 export default connect(
   mapStateToProps,
-  { notify, blogInitialization, blogLike, blogCreation, blogDeletion }
+  { notify, blogInitialization, blogLike, blogCreation, blogDeletion, login, logout, getStoredUser }
 )(App)
