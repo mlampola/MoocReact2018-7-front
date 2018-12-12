@@ -75,8 +75,9 @@ class RestrictedPage extends React.Component {
         <div>
           <h1>Blog App</h1>
           <User loggedInUser={this.props.user} logoutHandler={this.logout} />
+          <p></p>
           <Notification messageStyle='error' />
-          <Togglable buttonLabel="Create new...">
+          <Togglable buttonLabel="Create blog...">
             <BlogForm blog={{
               title: this.state.title,
               author: this.state.author,

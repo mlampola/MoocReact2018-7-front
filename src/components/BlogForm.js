@@ -4,7 +4,7 @@ import Notification from './Notification'
 const BlogForm = ({ blog, submitHandler, fieldChangeHandler }) => {
   return (
     <div>
-      <h2>Create new</h2>
+      <h2>Create blog</h2>
       <Notification messageStyle='message' />
 
       <form onSubmit={submitHandler}>
