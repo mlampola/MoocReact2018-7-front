@@ -20,18 +20,23 @@ const reducer = (store = null, action) => {
 export const login = (username, password) => {
   return async (dispatch) => {
 
-    const user = await loginService.login({
-      username,
-      password
-    })
+    try {
+      const user = await loginService.login({
+        username,
+        password
+      })
 
-    window.localStorage.setItem(USER_STORAGE_NAME, JSON.stringify(user))
-    blogService.setToken(user.token)
+      window.localStorage.setItem(USER_STORAGE_NAME, JSON.stringify(user))
+      blogService.setToken(user.token)
 
-    dispatch({
-      type: 'LOGIN',
-      user
-    })
+      dispatch({
+        type: 'LOGIN',
+        user
+      })
+    }
+    catch (exception) {
+      console.log('Login reducer: ', exception)
+    }
   }
 }
 
