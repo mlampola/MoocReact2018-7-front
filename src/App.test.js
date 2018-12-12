@@ -1,7 +1,6 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
 jest.mock('./services/blogs')
-import blogService from './services/blogs'
 import App from './App'
 
 describe('when user is not logged', () => {

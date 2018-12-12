@@ -2,22 +2,22 @@ import blogService from '../services/blogs'
 
 const reducer = (store = [], action) => {
   switch (action.type) {
-    case 'LIKE': {
-      const restOfTheBlogs = store.filter(b => b.id !== action.blog.id)
-      return [...restOfTheBlogs, action.blog]
-    }
+  case 'LIKE': {
+    const restOfTheBlogs = store.filter(b => b.id !== action.blog.id)
+    return [...restOfTheBlogs, action.blog]
+  }
 
-    case 'CREATE':
-      return [...store, action.blog]
+  case 'CREATE':
+    return [...store, action.blog]
 
-    case 'DELETE':
-      return store.filter(b => b.id !== action.id)
+  case 'DELETE':
+    return store.filter(b => b.id !== action.id)
 
-    case 'INIT_BLOGS':
-      return action.blogs
+  case 'INIT_BLOGS':
+    return action.blogs
 
-    default:
-      return store
+  default:
+    return store
   }
 }
 

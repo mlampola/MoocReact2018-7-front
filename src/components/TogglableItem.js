@@ -5,7 +5,7 @@ class TogglableItem extends React.Component {
   static propTypes = {
     clickableText: PropTypes.string.isRequired
   }
-  
+
   constructor(props) {
     super(props)
     this.state = {
@@ -22,7 +22,7 @@ class TogglableItem extends React.Component {
 
     return (
       <div>
-        <div onClick={this.toggleVisibility}  className="clickable">
+        <div onClick={this.toggleVisibility} className="clickable">
           {this.props.clickableText}
         </div>
         <div style={showWhenVisible} className="details">

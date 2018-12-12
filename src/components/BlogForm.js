@@ -10,7 +10,7 @@ const BlogForm = ({ blog, submitHandler, fieldChangeHandler }) => {
       <form onSubmit={submitHandler}>
         <div>
           Title
-        <input
+          <input
             name="title"
             value={blog.title}
             onChange={fieldChangeHandler}
@@ -18,7 +18,7 @@ const BlogForm = ({ blog, submitHandler, fieldChangeHandler }) => {
         </div>
         <div>
           Author
-        <input
+          <input
             name="author"
             value={blog.author}
             onChange={fieldChangeHandler}
@@ -26,7 +26,7 @@ const BlogForm = ({ blog, submitHandler, fieldChangeHandler }) => {
         </div>
         <div>
           URL
-        <input
+          <input
             name="url"
             value={blog.url}
             onChange={fieldChangeHandler}

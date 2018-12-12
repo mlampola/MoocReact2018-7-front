@@ -1,6 +1,6 @@
 const reducer = (store = null, action) => {
   if (action.type === 'NOTIFICATION') {
-    return { message: action.notification, messageStyle: action.notificationType}
+    return { message: action.notification, messageStyle: action.notificationType }
   }
   if (action.type === 'RESET') {
     return null

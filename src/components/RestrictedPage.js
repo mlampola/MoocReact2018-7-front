@@ -83,9 +83,9 @@ class RestrictedPage extends React.Component {
               author: this.state.author,
               url: this.state.url
             }}
-              submitHandler={this.addBlog}
-              fieldChangeHandler={this.handleBlogFieldChange}
-              message={this.props.notification ? this.props.notification.message : null} />
+            submitHandler={this.addBlog}
+            fieldChangeHandler={this.handleBlogFieldChange}
+            message={this.props.notification ? this.props.notification.message : null} />
           </Togglable>
           {this.props.children}
         </div>)

@@ -38,7 +38,7 @@ class HomePage extends React.Component {
             deleteHandler={this.deleteBlog}
             loggedInUser={this.props.user} />
         </div>
-        </RestrictedPage>
+      </RestrictedPage>
     )
   }
 }

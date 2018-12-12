@@ -4,7 +4,7 @@ const UserStats = ({ details }) => {
   return (
     <div>
       <table>
-        <thead style={{textAlign: 'left'}}>
+        <thead style={{ textAlign: 'left' }}>
           <tr>
             <th>User</th>
             <th>Blogs added</th>

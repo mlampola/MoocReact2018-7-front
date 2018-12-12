@@ -22,7 +22,7 @@ class BlogDetails extends React.Component {
                 <tr><td width="10"></td><td><a href={blog.url}>{blog.url}</a></td></tr>
                 <tr><td></td>
                   <td>{blog.likes} likes &nbsp;
-                <button id={blog.id} onClick={this.like}>Like</button>
+                    <button id={blog.id} onClick={this.like}>Like</button>
                   </td></tr>
                 <tr><td></td><td>{blog.user ? 'added by ' + blog.user.name : ''}</td></tr>
               </tbody>

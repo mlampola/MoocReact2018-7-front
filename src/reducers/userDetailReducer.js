@@ -2,11 +2,11 @@ import userDetailsService from '../services/userDetails'
 
 const reducer = (store = [], action) => {
   switch (action.type) {
-    case 'INIT_USER_DETAILS':
-      return action.details
+  case 'INIT_USER_DETAILS':
+    return action.details
 
-    default:
-      return store
+  default:
+    return store
   }
 }
 

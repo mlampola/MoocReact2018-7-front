@@ -11,7 +11,7 @@ const LoginForm = ({ username, password, loginHandler, fieldChangeHandler, messa
       <form onSubmit={loginHandler}>
         <div>
           Username
-        <input
+          <input
             type="text"
             name="username"
             value={username}
@@ -20,7 +20,7 @@ const LoginForm = ({ username, password, loginHandler, fieldChangeHandler, messa
         </div>
         <div>
           password
-        <input
+          <input
             type="password"
             name="password"
             value={password}

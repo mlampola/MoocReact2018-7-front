@@ -8,9 +8,9 @@ class Notification extends React.Component {
     return (
       notification === null ? null : (
         notification.messageStyle !== messageStyle ? null :
-        <div className={notification.messageStyle}>
-          {notification.message}
-        </div>
+          <div className={notification.messageStyle}>
+            {notification.message}
+          </div>
       )
     )
   }
