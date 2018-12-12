@@ -1,5 +1,6 @@
 import React from 'react'
 import Notification from './Notification'
+import { Form, Container } from 'semantic-ui-react'
 
 const BlogForm = ({ blog, submitHandler, fieldChangeHandler }) => {
   return (
@@ -7,34 +8,27 @@ const BlogForm = ({ blog, submitHandler, fieldChangeHandler }) => {
       <h2>Create blog</h2>
       <Notification messageStyle='message' />
 
-      <form onSubmit={submitHandler}>
-        <div>
-          Title
-          <input
+      <Container>
+        <Form onSubmit={submitHandler}>
+          <Form.Input
+            label='Title'
             name="title"
             value={blog.title}
-            onChange={fieldChangeHandler}
-          />
-        </div>
-        <div>
-          Author
-          <input
+            onChange={fieldChangeHandler} />
+          <Form.Input
+            label='Author'
             name="author"
             value={blog.author}
-            onChange={fieldChangeHandler}
-          />
-        </div>
-        <div>
-          URL
-          <input
+            onChange={fieldChangeHandler} />
+          <Form.Input
+            label='URL'
             name="url"
             value={blog.url}
-            onChange={fieldChangeHandler}
-          />
-        </div>
-        <button type="submit">Create</button>
-      </form>
-    </div>
+            onChange={fieldChangeHandler} />
+          <Form.Button positive type="submit">Create</Form.Button>
+        </Form>
+      </Container>
+    </div >
   )
 }
 

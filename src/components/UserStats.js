@@ -1,31 +1,32 @@
 import React from 'react'
+import { Table } from 'semantic-ui-react'
 
 const UserStats = ({ details }) => {
   return (
     <div>
-      <table>
-        <thead style={{ textAlign: 'left' }}>
-          <tr>
-            <th>User</th>
-            <th>Blogs added</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table unstackable striped celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>User</Table.HeaderCell>
+            <Table.HeaderCell>Blogs added</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
           {details
             .sort((a, b) => b.likes - a.likes)
             .map(user =>
-              <tr key={user.id}>
-                <td>
+              <Table.Row key={user.id}>
+                <Table.Cell>
                   <a href={`/users/${user.id}`}>{user.name}</a>
-                </td>
-                <td>
+                </Table.Cell>
+                <Table.Cell>
                   {user.blogs ? user.blogs.length : 0}
-                </td>
-              </tr>
+                </Table.Cell>
+              </Table.Row>
             )
           }
-        </tbody>
-      </table>
+        </Table.Body>
+      </Table>
     </div>)
 }
 

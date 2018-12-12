@@ -8,16 +8,17 @@ class UserBlogsPage extends React.Component {
     return (
       <div>
         <RestrictedPage>
-          <h2>Added blogs</h2>
-          <ul>
-            {(!this.props.blogUser || !this.props.blogUser.blogs) ? null :
-              this.props.blogUser.blogs.map(blog =>
-                <li key={blog._id}>
-                  <a href={`/blogs/${blog._id}`}>{`${blog.title} by ${blog.author}`}</a>
-                </li>
-              )
-            }
-          </ul>
+          {(!this.props.blogUser || !this.props.blogUser.blogs) ? null :
+            <div>
+              <h2>{`Blogs added by ${this.props.blogUser.name}`} </h2>
+              <ul>
+                {this.props.blogUser.blogs.map(blog =>
+                  <li key={blog._id}>
+                    <a href={`/blogs/${blog._id}`}>{`${blog.title} by ${blog.author}`}</a>
+                  </li>)
+                }
+              </ul>
+            </div>}
         </RestrictedPage>
       </div>)
   }

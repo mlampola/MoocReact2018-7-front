@@ -1,5 +1,7 @@
 import React from 'react'
 import './index.css'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Container } from 'semantic-ui-react'
 
 import HomePage from './components/HomePage'
 import UserPage from './components/UserPage'
@@ -11,7 +13,6 @@ import { blogInitialization } from './reducers/blogReducer'
 import { getStoredUser } from './reducers/userReducer'
 import { userDetailsInitialization } from './reducers/userDetailReducer'
 
-import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 class App extends React.Component {
   componentDidMount() {
@@ -30,7 +31,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <Router>
           <div>
             <Route exact path="/" render={() => <HomePage />} />
@@ -43,7 +44,7 @@ class App extends React.Component {
             />
           </div>
         </Router>
-      </div>
+      </Container>
     )
   }
 }

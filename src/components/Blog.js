@@ -1,35 +1,36 @@
 import React from 'react'
 import TogglableItem from './TogglableItem'
+import { Table, Button } from 'semantic-ui-react'
 
 const Blog = ({ blog, likeHandler, deleteHandler, loggedInUser }) => {
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5
-  }
-
   const showWhenVisible = { display: blog.user ? (loggedInUser.username === blog.user.username ? '' : 'none') : '' }
 
   return (
-    <div style={blogStyle}>
-      <TogglableItem clickableText={blog.title + ' ' + blog.author}>
-        <table>
-          <tbody>
-            <tr><td width="10"></td><td><a href={blog.url}>{blog.url}</a></td></tr>
-            <tr><td></td><td>{blog.likes} likes &nbsp;
-              <button id={blog.id} onClick={likeHandler}>Like</button>
-            </td></tr>
-            <tr><td></td><td>{blog.user ? 'added by ' + blog.user.name : ''}</td></tr>
-          </tbody>
-        </table>
+    <div>
+      <TogglableItem clickableText={`${blog.title} by ${blog.author}`}>
+        <Table>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>{blog.likes} likes &nbsp;
+                <Button compact color='pink' id={blog.id} onClick={likeHandler}>Like</Button>
+              </Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>{blog.user ? 'Added by ' + blog.user.name : ''}
+              </Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
         <div style={showWhenVisible}>
-          <table>
-            <tbody>
-              <tr><td width="10"></td><td><button id={blog.id} onClick={deleteHandler}>Delete</button></td></tr>
-            </tbody>
-          </table>
+          <Table>
+            <Table.Body>
+              <Table.Row style={showWhenVisible}>
+                <Table.Cell>
+                  <Button negative id={blog.id} onClick={deleteHandler}>Delete</Button>
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
         </div>
       </TogglableItem>
     </div>
