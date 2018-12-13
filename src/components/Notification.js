@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { notify } from '../reducers/notificationReducer'
 
@@ -14,6 +15,10 @@ class Notification extends React.Component {
       )
     )
   }
+}
+
+Notification.propTypes = {
+  messageStyle: PropTypes.string.isRequired
 }
 
 const mapStateToProps = (state) => {

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import TogglableItem from './TogglableItem'
 import { Table, Button } from 'semantic-ui-react'
 
@@ -35,6 +36,13 @@ const Blog = ({ blog, likeHandler, deleteHandler, loggedInUser }) => {
       </TogglableItem>
     </div>
   )
+}
+
+Blog.propTypes = {
+  likeHandler: PropTypes.func.isRequired,
+  deleteHandler: PropTypes.func.isRequired,
+  blog: PropTypes.object.isRequired,
+  loggedInUser: PropTypes.object.isRequired
 }
 
 export default Blog

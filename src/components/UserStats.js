@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react'
 
 const UserStats = ({ details }) => {
@@ -28,6 +29,10 @@ const UserStats = ({ details }) => {
         </Table.Body>
       </Table>
     </div>)
+}
+
+UserStats.propTypes = {
+  details: PropTypes.array.isRequired
 }
 
 export default UserStats

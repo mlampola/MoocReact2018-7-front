@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import BlogList from './BlogList'
 import RestrictedPage from './RestrictedPage'
@@ -41,6 +42,10 @@ class HomePage extends React.Component {
       </RestrictedPage>
     )
   }
+}
+
+HomePage.propTypes = {
+  blogs: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => {

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Notification from './Notification'
 import { Form, Container } from 'semantic-ui-react'
 
@@ -30,6 +31,12 @@ const BlogForm = ({ blog, submitHandler, fieldChangeHandler }) => {
       </Container>
     </div >
   )
+}
+
+BlogForm.propTypes = {
+  blog: PropTypes.object.isRequired,
+  submitHandler: PropTypes.func.isRequired, 
+  fieldChangeHandler: PropTypes.func.isRequired
 }
 
 export default BlogForm

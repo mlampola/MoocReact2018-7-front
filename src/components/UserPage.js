@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import RestrictedPage from './RestrictedPage'
 import UserStats from './UserStats'
 
@@ -16,6 +17,10 @@ class UserPage extends React.Component {
       </RestrictedPage>
     )
   }
+}
+
+UserPage.propTypes = {
+  details: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => {

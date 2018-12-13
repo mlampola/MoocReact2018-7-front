@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Blog from './Blog'
 import { Table } from 'semantic-ui-react'
 
@@ -23,6 +24,12 @@ const BlogList = ({ blogs, likeHandler, deleteHandler, loggedInUser }) => {
         </Table.Body>
       </Table>
     </div>)
+}
+
+BlogList.propTypes = {
+  blogs: PropTypes.array.isRequired,
+  likeHandler: PropTypes.func.isRequired,
+  deleteHandler: PropTypes.func.isRequired
 }
 
 export default BlogList
