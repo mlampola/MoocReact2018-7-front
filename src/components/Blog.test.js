@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow, mount } from 'enzyme'
 import Blog from './Blog'
 
-describe.only('<Blog />', () => {
+describe.skip('<Blog />', () => {
   const blog = {
     title: 'Tilintarkastus eilen, tänään ja huomenna',
     author: 'P.K.',

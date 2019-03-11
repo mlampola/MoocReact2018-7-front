@@ -23,7 +23,7 @@ const LoginForm = ({ username, password, loginHandler, fieldChangeHandler, messa
             name="password"
             value={password}
             onChange={fieldChangeHandler} />
-          <Form.Button positive >Login</Form.Button>
+          <Form.Button positive name='submit'>Login</Form.Button>
         </Form>
       </Container>
     </div>
