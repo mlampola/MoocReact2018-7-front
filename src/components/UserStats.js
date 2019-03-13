@@ -18,8 +18,8 @@ class UserStats extends React.Component {
     return (
       <Router>
         <div>
-          <Route exact path="/blogs" render={() => <HomePage />} />
-          <Route exact path='/users' render={() => <UserStat details={this.props.details} />} />
+          <Route exact path="/" render={() => <HomePage />} />
+          <Route exact path="/users" render={() => <UserStat details={this.props.details} />} />
           <Route exact path="/users/:id" render={({ match }) =>
             <UserBlogsPage blogUser={this.userById(match.params.id)} />}
           />
