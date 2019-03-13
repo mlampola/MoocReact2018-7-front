@@ -7,6 +7,7 @@ import HomePage from './components/HomePage'
 import UserPage from './components/UserPage'
 import UserBlogsPage from './components/UserBlogsPage'
 import BlogDetails from './components/BlogDetails'
+import UserStats from './components/UserStats'
 
 import { connect } from 'react-redux'
 import { blogInitialization } from './reducers/blogReducer'
@@ -35,14 +36,16 @@ class App extends React.Component {
         <Router>
           <div>
             <Route exact path="/" render={() => <HomePage />} />
-            <Route exact path="/users" render={() => <UserPage />} />
-            <Route exact path="/users/:id" render={({ match }) =>
+            <Route exact path='/users' render={() => <UserStats details={this.props.details} />} />
+            <Route exact path="/blogs" render={() => <HomePage />} />
+{/*             <Route exact path="/users/:id" render={({ match }) =>
               <UserBlogsPage blogUser={this.userById(match.params.id)} />}
             />
             <Route exact path="/blogs/:id" render={({ match }) =>
               <BlogDetails blog={this.blogById(match.params.id)} />}
             />
-          </div>
+            <Route path="*" component={HomePage} />
+ */}          </div>
         </Router>
       </Container>
     )

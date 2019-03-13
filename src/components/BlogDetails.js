@@ -11,6 +11,7 @@ class BlogDetails extends React.Component {
   }
 
   render() {
+    console.log('Blog details: ', this.props)
     const { blog } = this.props
     return (
       <div>

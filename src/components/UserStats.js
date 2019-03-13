@@ -1,38 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import UserBlogsPage from './UserBlogsPage'
+import RestrictedPage from './RestrictedPage'
+import UserStat from './UserStat'
+import HomePage from './HomePage'
+import { connect } from 'react-redux'
 
-const UserStats = ({ details }) => {
-  return (
-    <div>
-      <Table unstackable striped celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell>User</Table.HeaderCell>
-            <Table.HeaderCell>Blogs added</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {details
-            .sort((a, b) => b.likes - a.likes)
-            .map(user =>
-              <Table.Row key={user.id}>
-                <Table.Cell>
-                  <a href={`/users/${user.id}`}>{user.name}</a>
-                </Table.Cell>
-                <Table.Cell>
-                  {user.blogs ? user.blogs.length : 0}
-                </Table.Cell>
-              </Table.Row>
-            )
-          }
-        </Table.Body>
-      </Table>
-    </div>)
+class UserStats extends React.Component {
+
+  userById = (id) => {
+    return this.props.details.find(user => user.id === id)
+  }
+
+  render() {
+    return (
+      <Router>
+        <div>
+          <Route exact path="/blogs" render={() => <HomePage />} />
+          <Route exact path='/users' render={() => <UserStat details={this.props.details} />} />
+          <Route exact path="/users/:id" render={({ match }) =>
+            <UserBlogsPage blogUser={this.userById(match.params.id)} />}
+          />
+        </div>
+      </Router>
+    )
+  }
 }
 
 UserStats.propTypes = {
   details: PropTypes.array.isRequired
 }
 
-export default UserStats
+const mapStateToProps = (state) => {
+  return {
+    details: state.details,
+    blogs: state.blogs
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(UserStats)

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import RestrictedPage from './RestrictedPage'
 import UserStats from './UserStats'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 
@@ -12,7 +13,11 @@ class UserPage extends React.Component {
       <RestrictedPage>
         <div className="blogs">
           <h2>Users</h2>
-          <UserStats details={this.props.details} />
+          <Router>
+            <div>
+              <Route exact path='/users' render={() => <UserStats details={this.props.details} />} />
+            </div>
+          </Router>
         </div>
       </RestrictedPage>
     )
@@ -25,7 +30,8 @@ UserPage.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    details: state.details
+    details: state.details,
+    blogs: state.blogs
   }
 }
 
