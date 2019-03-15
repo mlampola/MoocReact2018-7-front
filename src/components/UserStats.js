@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table } from 'semantic-ui-react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import UserBlogsPage from './UserBlogsPage'
-import RestrictedPage from './RestrictedPage'
 import UserStat from './UserStat'
 import HomePage from './HomePage'
 import { connect } from 'react-redux'
@@ -15,12 +13,13 @@ class UserStats extends React.Component {
   }
 
   render() {
+    console.log('User stats router: ', this.props)
     return (
       <Router>
         <div>
           <Route exact path="/" render={() => <HomePage />} />
           <Route exact path="/users" render={() => <UserStat details={this.props.details} />} />
-          <Route exact path="/users/:id" render={({ match }) =>
+          <Route exact path="/users/:id/blogs" render={({ match }) =>
             <UserBlogsPage blogUser={this.userById(match.params.id)} />}
           />
         </div>

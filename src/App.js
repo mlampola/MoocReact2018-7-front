@@ -4,9 +4,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
 
 import HomePage from './components/HomePage'
-import UserPage from './components/UserPage'
-import UserBlogsPage from './components/UserBlogsPage'
-import BlogDetails from './components/BlogDetails'
 import UserStats from './components/UserStats'
 
 import { connect } from 'react-redux'
@@ -36,16 +33,8 @@ class App extends React.Component {
         <Router>
           <div>
             <Route exact path="/" render={() => <HomePage />} />
-            <Route exact path='/users' render={() => <UserStats details={this.props.details} />} />
-            <Route exact path="/blogs" render={() => <HomePage />} />
-{/*             <Route exact path="/users/:id" render={({ match }) =>
-              <UserBlogsPage blogUser={this.userById(match.params.id)} />}
-            />
-            <Route exact path="/blogs/:id" render={({ match }) =>
-              <BlogDetails blog={this.blogById(match.params.id)} />}
-            />
-            <Route path="*" component={HomePage} />
- */}          </div>
+            <Route exact path="/users" render={() => <UserStats details={this.props.details} />} />
+          </div>
         </Router>
       </Container>
     )

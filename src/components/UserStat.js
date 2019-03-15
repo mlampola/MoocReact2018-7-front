@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
-import UserBlogsPage from './UserBlogsPage'
+import { Link } from 'react-router-dom'
 import RestrictedPage from './RestrictedPage'
 import { connect } from 'react-redux'
 
@@ -30,7 +29,7 @@ class UserStats extends React.Component {
                 .map(user =>
                   <Table.Row key={user.id}>
                     <Table.Cell>
-                      <Link to={`/users/${user.id}`}>{user.name}</Link>
+                      <Link to={`/users/${user.id}/blogs`}>{user.name}</Link>
                     </Table.Cell>
                     <Table.Cell>
                       {user.blogs ? user.blogs.length : 0}

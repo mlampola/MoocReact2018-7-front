@@ -1,43 +1,43 @@
 import React from 'react'
-import RestrictedPage from './RestrictedPage'
 import { connect } from 'react-redux'
 import { blogLike } from '../reducers/blogReducer'
-import { Button } from 'semantic-ui-react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import HomePage from './HomePage'
+import UserStat from './UserStat'
+import BlogDetail from './BlogDetail'
 
 class BlogDetails extends React.Component {
 
-  like = (event) => {
-    this.props.blogLike(event.target.id)
+  blogById = (id) => {
+    return this.props.blogs.find(blog => blog.id === id)
   }
 
   render() {
-    console.log('Blog details: ', this.props)
-    const { blog } = this.props
+    console.log('Blog details router: ', this.props)
     return (
-      <div>
-        {!blog ? null :
-          <RestrictedPage>
-            <h2>{`${blog.title} by ${blog.author}`}</h2>
-            <table>
-              <tbody>
-                <tr><td width="10"></td><td><a href={blog.url}>{blog.url}</a></td></tr>
-                <tr><td></td>
-                  <td>{blog.likes} likes &nbsp;
-                    <Button compact color='pink' id={blog.id} onClick={this.like}>Like</Button>
-                  </td></tr>
-                <tr><td></td><td>{blog.user ? 'added by ' + blog.user.name : ''}</td></tr>
-              </tbody>
-            </table>
-          </RestrictedPage>}
-      </div>
+      <Router>
+        <div>
+          <Route exact path="/" render={() => <HomePage />} />
+          <Route exact path="/users" render={() => <UserStat details={this.props.details} />} />
+          <Route exact path="/users/:uid/blogs/:bid" render={({ match }) =>
+            <BlogDetail blog={this.blogById(match.params.bid)} />}
+          />
+        </div>
+      </Router>
     )
   }
+}
+
+BlogDetails.propTypes = {
+  blogs: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    notification: state.notification
+    notification: state.notification,
+    blogs: state.blogs
   }
 }
 
