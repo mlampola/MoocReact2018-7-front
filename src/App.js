@@ -1,10 +1,12 @@
 import React from 'react'
 import './index.css'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Container } from 'semantic-ui-react'
+import { Route, withRouter } from 'react-router-dom'
 
+import RestrictedPage from './components/RestrictedPage'
 import HomePage from './components/HomePage'
-import UserStats from './components/UserStats'
+import UserStat from './components/UserStat'
+import UserBlogPage from './components/UserBlogPage'
+import BlogDetail from './components/BlogDetail'
 
 import { connect } from 'react-redux'
 import { blogInitialization } from './reducers/blogReducer'
@@ -29,14 +31,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <Container>
-        <Router>
-          <div>
-            <Route exact path="/" render={() => <HomePage />} />
-            <Route exact path="/users" render={() => <UserStats details={this.props.details} />} />
-          </div>
-        </Router>
-      </Container>
+      <RestrictedPage>
+        <Route exact path="/" render={() => <HomePage />} />
+        <Route exact path="/users" render={() => <UserStat />} />
+        <Route path="/users/:id/blogs" render={({ match }) =>
+          <UserBlogPage blogUser={this.userById(match.params.id)} />}
+        />
+        <Route path="/blogs/:id" render={({ match }) =>
+          <BlogDetail blog={this.blogById(match.params.id)} />
+        }
+        />
+      </RestrictedPage>
     )
   }
 }
@@ -48,7 +53,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   { blogInitialization, getStoredUser, userDetailsInitialization }
-)(App)
+)(App))

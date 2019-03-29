@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import BlogList from './BlogList'
-import RestrictedPage from './RestrictedPage'
 
 import blogService from '../services/blogs'
 
@@ -31,15 +30,13 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <RestrictedPage>
-        <div className="blogs">
-          <h2>Blogs</h2>
-          <BlogList blogs={this.props.blogs}
-            likeHandler={this.like}
-            deleteHandler={this.deleteBlog}
-            loggedInUser={this.props.user} />
-        </div>
-      </RestrictedPage>
+      <div className="blogs">
+        <h2>Blogs</h2>
+        <BlogList blogs={this.props.blogs}
+          likeHandler={this.like}
+          deleteHandler={this.deleteBlog}
+          loggedInUser={this.props.user} />
+      </div>
     )
   }
 }
