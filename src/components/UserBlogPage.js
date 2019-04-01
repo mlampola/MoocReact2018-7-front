@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { BrowserRouter as Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 class UserBlogPage extends React.Component {
 
@@ -18,9 +18,8 @@ class UserBlogPage extends React.Component {
             <ul>
               {this.props.blogUser.blogs.map(blog =>
                 <li key={blog._id}>
-                  <p>{`${blog.title} by ${blog.author}`}</p>
-                  {/*                   <Link to={`/blogs/${blog._id}`}>{`${blog.title} by ${blog.author}`}</Link>
- */}                </li>)
+                  <Link to={`/blogs/${blog._id}`}>{`${blog.title} by ${blog.author}`}</Link>
+                </li>)
               }
             </ul>
           </div>}
